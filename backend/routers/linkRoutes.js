@@ -5,7 +5,7 @@ const router = express.Router();
 const asyncHandler = require("express-async-handler");
 const {protect} = require("../middleware/auth")
 const User = require("../models/user");
-const baseUrl = "http://localhost:3001/"
+const baseUrl = "https://myurls1.onrender.com"
 
 const getLinks = asyncHandler(async(req, res) => {
     const links = await Link.find({user: req.user.id})
