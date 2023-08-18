@@ -11,7 +11,7 @@ app.use(cors())
 app.use("/", require("./routers/linkRoutes.js"))
 app.use("/api/users", require("./routers/userRoutes"))
 
-mongoose.connect('mongodb+srv://Dravenn1:Dravenn1@cluster0.gzcht05.mongodb.net/', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 .then((result) => {
     app.listen(3001, () => {
         console.log("server is running")
