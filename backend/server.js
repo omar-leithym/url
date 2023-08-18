@@ -21,7 +21,7 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
 })
 
 
-if(process.env.node_env === 'production') {
+if(process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../frontend/client/build')))
 
     app.get('*', (req, res) => {
