@@ -11,6 +11,15 @@ app.use(cors())
 app.use("/", require("./routers/linkRoutes.js"))
 app.use("/api/users", require("./routers/userRoutes"))
 
+if(process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '../frontend/client/build')))
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, '../frontend/client/build', 'index.html'))
+    })
+} else {
+    app.get('/', (req,res) => res.send('Please set to production'))
+}
+
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 .then((result) => {
     app.listen(3001, () => {
@@ -20,12 +29,3 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
     console.log(err)
 })
 
-
-if(process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, '../frontend/client/build')))
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, '../frontend/client/build', 'index.html'))
-    })
-} else {
-    app.get('/', (req,res) => res.send('Please set to production'))
-}
